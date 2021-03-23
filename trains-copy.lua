@@ -95,7 +95,7 @@ local function get_train_by_stations(stations)
         local isamatch = true
 
         for i, v in ipairs(stations) do
-          if schedule.records[i].station ~= v then
+          if schedule.records[i] == nil or schedule.records[i].station ~= v then
             isamatch = false
             break
           end
@@ -197,6 +197,7 @@ end
 
 local function strtrain(train)
   
+  debug_log('strtrain', 'strtrain for train of' .. train.id)
   
   local station_list = get_train_station_list(train)
   
@@ -325,7 +326,6 @@ local function copy_trains(template_train, trains_to_update, commitupdate)
       update_train_schedule(template_schedule, train, commitupdate)
 
       update_train_filter(template_train, train, commitupdate)
-
       trains_updated[#trains_updated+1] = train
       
     end
@@ -376,6 +376,10 @@ local function inspect_trains(station_list)
 
 end
 
-update_trains(410, {'n-iore-supply-8', 'n-ismelter-8'}, false)
+update_trains(410, {'n-iron-supply-8', 'n-iron-req-8'}, false)
 
--- inspect_trains({'n-iore-supply-8', 'n-ismelter-8'})
+-- update_trains(291, {'n-copper-supply-8', 'n-copper-req-8'}, false)
+
+-- update_trains(415, {'n-iron-req-8', 'n-exit-lobby', 'n-exit-lobby'}, false)
+
+-- inspect_trains({'n-core-supply-8', 'n-csmelter-8'})
